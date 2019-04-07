@@ -1,0 +1,27 @@
+ersion: '3.7'
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:alpine
+    restart: always
+    command: --api --docker
+    ports:
+      - 80:80      # The HTTP port
+      - 443:443    # The HTTPS port
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/traefik.toml:/etc/traefik/traefik.toml
+      - ./data/acme:/etc/traefik/acme/
+    networks:
+      - traefiknet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:traefik.yourdomain.com"  
+      - "traefik.port=8080"
+      - "traefik.protocol=http"
+      - "traefik.docker.network=traefiknet"
+      - "traefik.frontend.auth.basic.users=admin:$$apr1$$ehDe6rcX$$IfQL/zoJ47qIW4j/WQ.Og0"
+networks:
+  traefiknet:
+    external: true
