@@ -33,5 +33,5 @@ then docker-compose up, your up should be serve on 443 (https), goodluck!
 
 if you facing any issues, feel free to open issue on this repo. thanks.
 
-Regards,
+Regards,  
 Luqmanul Hakim
